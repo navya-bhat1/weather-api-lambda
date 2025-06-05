@@ -1,26 +1,37 @@
-# 🌦️ Weather API using AWS Lambda & API Gateway
+import json
+import requests
 
-This project is a serverless weather API built using **AWS Lambda**, **API Gateway**, and **OpenWeatherMap API**.
-
-You can get real-time weather information (temperature, humidity, and condition) by passing a city name as a query parameter.
-
----
-
-## 🔧 Tech Stack
-
-- **Python 3.9**
-- **AWS Lambda**
-- **AWS API Gateway**
-- **OpenWeatherMap API**
-- **GitHub**
-
----
-
-## 📌 How It Works
-
-- A Lambda function is triggered via API Gateway.
-- The function fetches live weather data from OpenWeatherMap.
-- You pass the city name as a query parameter in the URL.
-
-### 🔗 Example Request:
-
+def lambda_handler(event, context):
+    api_key = "e9d3ab49065d347e21d9b4a3fd9a0ca9"
+    
+    try:
+        city = event['queryStringParameters']['city']
+        url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+        response = requests.get(url)
+        data = response.json()
+        
+        if response.status_code == 200:
+            temperature = data['main']['temp']
+            humidity = data['main']['humidity']
+            condition = data['weather'][0]['description']
+            
+            return {
+                'statusCode': 200,
+                'body': json.dumps({
+                    'city': city,
+                    'temperature': temperature,
+                    'humidity': humidity,
+                    'condition': condition
+                })
+            }
+        else:
+            return {
+                'statusCode': response.status_code,
+                'body': json.dumps({"error": data.get("message", "Unknown error")})
+            }
+    
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'body': json.dumps({"error": str(e)})
+        }
