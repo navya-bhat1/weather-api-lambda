@@ -32,7 +32,5 @@ This is a simple AWS Lambda function that fetches current weather data using the
   "condition": "haze"
 }
 ## 📎 Example URL Usage
-
-https://94tu68abvh.execute-api.us-east-2.amazonaws.com/weather?city=mumbai
-[Try the API with Mumbai](https://94tu68abvh.execute-api.us-east-2.amazonaws.com/weather?city=mumbai)
+(https://94tu68abvh.execute-api.us-east-2.amazonaws.com/weather?city=mumbai)
 
