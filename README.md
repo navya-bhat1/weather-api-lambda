@@ -37,4 +37,9 @@ This is a simple AWS Lambda function that fetches current weather data using the
 ## 📎 Example URL Usage
 
 [Try the API with Mumbai](https://94tu68abvh.execute-api.us-east-2.amazonaws.com/weather?city=mumbai)
+---
+
+## 📝 Note on Weather Data
+
+Weather data may vary slightly depending on the source. This API fetches real-time temperature from OpenWeatherMap, which may differ by 1–2°C from platforms like Google or AccuWeather due to update frequency or data provider differences.
 
